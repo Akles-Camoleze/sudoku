@@ -4,6 +4,8 @@ class Sudoku:
 
     def __init__(self, matrix: list):
         self.__matrix = matrix
+        if not self.__validate_format():
+            raise Exception('Invalid format')
         self.__numbers = [_ for _ in range(1, 10)]
 
     def __str__(self):
@@ -70,3 +72,32 @@ class Sudoku:
                 return False
 
         return True
+
+    def __validate_unit(self, unit):
+        seen = set()
+        for num in unit:
+            if num < 0 or num > 9:
+                return False
+            if num != 0:
+                if num in seen:
+                    return False
+                seen.add(num)
+        return True
+
+    def __validate_format(self):
+        for row in self.__matrix:
+            if len(row) != 9 or not self.__validate_unit(row):
+                return False
+
+        for col in zip(*self.__matrix):
+            if len(col) != 9 or not self.__validate_unit(col):
+                return False
+
+        for i in range(0, 9, 3):
+            for j in range(0, 9, 3):
+                subgrid = [self.__matrix[x][y] for x in range(i, i + 3) for y in range(j, j + 3)]
+                if len(subgrid) != 9 or not self.__validate_unit(subgrid):
+                    return False
+
+        return True
+

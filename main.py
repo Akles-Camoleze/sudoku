@@ -1,6 +1,5 @@
 import string
 import argparse
-
 from Sudoku import Sudoku
 
 
@@ -32,7 +31,6 @@ def init_args() -> argparse.Namespace:
 
 if __name__ == "__main__":
     args = init_args()
-
 
     def main():
         if args.file:
