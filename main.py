@@ -1,5 +1,7 @@
 import string
 import argparse
+import sys
+
 from Sudoku import Sudoku
 
 
@@ -8,7 +10,8 @@ def read_file(file_name: string) -> list:
         with open(file_name, 'r') as file:
             return file.readlines()
     except FileNotFoundError:
-        print(f'{file} not found.')
+        print(f'{file_name} not found.')
+        sys.exit(1)
 
 
 def create_matrix(lines: list) -> list:
